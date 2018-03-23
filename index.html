@@ -1,0 +1,386 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="GBK">
+	<title>Phaser</title>
+    
+    
+    <script type="text/javascript">
+    	
+    	var design_width = 750;
+    	
+        if(/Android (\d+\.\d+)/.test(navigator.userAgent)){
+            var version = parseFloat(RegExp.$1);
+            if(version>2.3){
+                var phoneScale = parseInt(window.screen.width)/design_width;
+                document.write('<meta name="viewport" content="width='+design_width+', minimum-scale = '+ phoneScale +', maximum-scale = '+ phoneScale +', target-densitydpi=device-dpi">');
+            }else{
+                document.write('<meta name="viewport" content="width='+design_width+', target-densitydpi=device-dpi">');
+            }
+        }else{
+            document.write('<meta name="viewport" content="width='+design_width+', user-scalable=no, target-densitydpi=device-dpi">');
+        }
+    </script>
+    
+    
+    <style>
+        *{margin:0;padding:0}
+        html, body
+        {
+            -webkit-text-size-adjust:none;
+            overflow: hidden;
+            height:100%;
+            margin: 0px 0px 1px 0px;
+            background-color: #000
+        }
+        
+        .cover{
+        	position: absolute;
+        	left:0;
+        	top:0;
+        	right:0;
+        	bottom:0;
+        	background-color: rgba(0,0,0,.7);
+        	
+        }
+        
+        .cover .cc{
+        	width:100%;
+        	height:100%;
+        	display: -webkit-flex;
+        	-webkit-align-items: center;
+        	-webkit-justify-content: center;
+        }
+        
+        .cover .tip{
+        	text-align: center;
+        	font-size:50px;
+        	padding-bottom:40px;
+        	margin-top:-30px;
+        	color:#ffcb2c;
+        	font-weight: bold;
+        }
+        
+
+        
+        
+        #tel .pop,#mybox .pop{
+        	width:570px;
+        	height:318px;
+        	background-image: url(assets/pop.png);
+        	background-size: 570px 318px;
+        	display: -webkit-flex;
+        	-webkit-flex-direction: column;
+        	-webkit-align-items: center;
+        	-webkit-justify-content: center;
+        	font-size:30px;
+        }
+        
+        input::-webkit-input-placeholder{
+            color:#000;
+        }
+        
+        #tel input{
+        	width:430px;
+        	height:65px;
+        	background-color: #ffefbf;
+        	border: none;
+        	border-radius: 10px;
+        	font-size:30px;
+        	text-indent: 2rem;
+        	color:#000;
+        }
+        #tel button{
+        	width:430px;
+        	height:65px;
+        	background-color: #ffcb2c;
+        	border: none;
+        	border-radius: 10px;
+        	font-size:30px;
+        	margin-top:40px;
+        }
+        
+        #flags .pop{
+        	width:559px;
+        	height:819px;
+        	background-image: url(assets/win-flag.png);
+        	background-size: 559px 819px;
+        	
+        	display: -webkit-flex;
+        	-webkit-flex-direction: column;
+        	-webkit-align-items: center;
+        	-webkit-justify-content: center;
+        }
+        
+        #flags .pop .from p{
+        	color:#fff;
+        	font-size:30px;	
+        	text-align: center;
+        	margin-bottom:20px;
+        	
+        }
+        
+        .bc{
+        	height:60px;
+        	width:365px;
+        	background-color: #7590c1;
+        	border: none;
+        	font-size:30px;
+        	text-indent: 1rem;
+        	border-radius: 10px;
+        	color:#fff;
+        	margin-bottom:10px;
+        }
+        input.bc::-webkit-input-placeholder{
+            color:#fff;
+        }
+        
+        textarea{
+        	width:345px;
+        	background-color: #7590c1;
+        	border: none;
+        	font-size:30px;
+        	border-radius: 10px;
+        	padding:10px;
+        	color:#fff;
+        }
+        textarea::-webkit-input-placeholder{
+            color:#fff;
+        }
+        
+        .control-group{
+        	margin-bottom:10px;
+        }
+        
+        .selects-bg{
+        		height:60px;
+        	    background-image: url(assets/arr.png);
+        	    background-position: right center;
+			    background-repeat: no-repeat;
+			    -webkit-border-radius: .2rem;
+			    width:365px;
+			    background-color: #7590c1;
+			    border-radius: 10px;
+        }
+        
+        .selects-bg select{
+        	background: transparent;
+		    border-width: 0px;
+		    border-top-style: none;
+		    border-right-style: none;
+		    border-left-style: none;
+		    border-bottom-style: none;
+		    -webkit-appearance: none;
+		    height:60px;
+		    color:#fff;
+		    font-size:30px;
+		    width:100%;
+		    text-indent: .5em;
+        }
+        
+        .sub{
+        	text-align: center;
+        	margin-top:50px;
+        }
+        .sub button{
+        	width:159px;
+        	height:47px;
+        	background-image: url(assets/tijiao.png);
+        	background-size: 159px 47px;
+        	border:none;
+        	background-color: transparent;
+        }
+        .back{
+        	text-align: center;
+        	margin-top:100px;
+        }
+        
+        .back-ico{
+        	width:64px;
+        	height:64px;
+        	background-image: url(assets/back-ico.png);
+        	background-size: 64px 64px;
+        	position: absolute;
+        	left:20px;
+        	top:20px;
+        }
+        
+    </style>
+    
+
+    
+    <script src="phaser.2.4.7.min.js"></script>
+    <script src="Boot.js"></script>
+    <script src="Preloader.js"></script>
+    <script src="UI.js"></script>
+    <script src="MainMenu.js"></script>
+    <script src="Gameready.js"></script>
+    <script src="Game.js"></script>
+    <script src="Gameover.js"></script>
+    <script src="Gamewin.js"></script>
+</head>
+<body>
+	<div id="game"></div>
+	
+	<div class="cover" id="tel" style="display: none;">
+		<div class="cc">
+			<div>
+				<div class="tip">信息填写有助于提高中奖率<br/>请如实填写哦＾-＾</div>
+				<div class="pop">
+					<input type="text" placeholder="电话" />
+					<button id="goGame">继续游戏</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+
+	
+	<div class="cover" id="mybox" style="display: none;">
+		<div class="cc">
+			<div>
+				<div class="tip">我的奖品</div>
+				<div class="pop">
+					<div style="display: none;">江苏苏宁主场球票两张</div>
+					<img src="assets/no_poil.jpg" width="441" height="195" alt="" />
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	<div class="cover" id="flags" style="display: none;">
+		
+		<div class="back-ico" id="back-ico"></div>
+		
+		<div class="cc">
+			<div class="pop">
+			<div id="yihan" style="display: none;">
+				<img src="assets/yihan.png" style="margin-top:70px;"  width="299" height="194" alt="" />
+				
+				<div class="back" ><img src="assets/game_repeat.png" id="repeat"/></div>
+				
+			</div>
+			
+			<img src="assets/huojiang.png" id="tijiao" style="margin-top:40px;" width="261" height="414" alt="" />
+			
+			<div id="success" style="margin-top:-80px;display: none;">
+				<img src="assets/success.png"   width="376" height="283" alt="" />
+				<!--<div class="back"><img src="assets/back.png" id="win-back"/></div>-->
+			</div>
+			
+			
+			
+			<div class="from" id="from" style="display: none;">
+				<p>请填写真实的领奖信息</p>
+				<div class="frm"><input type="text" class="bc" placeholder="姓名" /></div>
+				<div class="frm control-group">
+					<div class="controls selects-bg">
+						<select class="input-xlarge pro-select" name="province" id="province">
+							<option value="current" selected="selected">选择城市</option>
+							<option value="0">南京市</option>
+							<option value="1">徐州市</option>
+							<option value="2">连云港</option>
+							<option value="3">宿迁</option>
+							<option value="4">淮安</option>
+							<option value="5">扬州</option>
+							<option value="6">盐城</option>
+							<option value="7">南通</option>
+							<option value="8">泰州</option>
+							<option value="9">苏州</option>
+							<option value="10">常州</option>
+							<option value="11">无锡</option>
+							<option value="12">镇江</option>
+						</select>
+					</div>
+				</div>
+				<div class="frm"><textarea placeholder="详细地址" name="" rows="3" cols=""></textarea></div>
+				
+				<div class="sub"><button id="sub"></button></div>
+				
+			</div>
+			
+		</div>
+		</div>
+	</div>
+	
+	
+<script>
+	
+	var pop = {
+		_show : function(id){
+			document.getElementById(id).style.display = 'block'
+		},
+		_hide : function(id){
+			document.getElementById(id).style.display = 'none'
+		}
+	}
+	
+	
+	document.getElementById('game').style.height = document.body.clientHeight + 'px';
+    var game = new Phaser.Game('100%', '100%', Phaser.CANVAS, 'game');
+	    game.state.add('Boot', MyGame.Boot);
+	    game.state.add('Preloader', MyGame.Preloader);
+	    game.state.add('MainMenu', MyGame.MainMenu);
+	    game.state.add('Gameready', MyGame.Gameready);
+	    game.state.add('Game', MyGame.Game);
+	    game.state.add('Gameover', MyGame.Gameover);
+	    game.state.add('Gamewin', MyGame.Gamewin);
+	    game.state.start('Boot');
+	    
+	    
+	    document.getElementById('mybox').addEventListener('touchend',function(e){
+	    	e.preventDefault();
+	    	pop._hide('mybox');
+	    },false);
+	    
+	    
+	    
+	    
+	    document.getElementById('goGame').addEventListener('touchend',function(){
+	    	pop._hide('tel');
+	    	game.state.start('Gameready')
+	    },false);
+	    
+		document.getElementById('sub').addEventListener('touchend',function(){
+			document.getElementById('from').style.display = 'none';
+			document.getElementById('success').style.display = 'block'
+		},false)
+		
+		
+		document.getElementById('tijiao').addEventListener('touchend',function(){
+			document.getElementById('from').style.display = 'block';
+			document.getElementById('tijiao').style.display = 'none'
+		},false)
+		
+		document.getElementById('repeat').addEventListener('touchend',function(){
+			
+			document.getElementById('flags').style.display = 'none'
+			
+			game.state.start('Game')
+			
+			//window.location.replace("/index.html" + Math.random() * 1000000)
+		},false)
+		
+		
+		document.getElementById('back-ico').addEventListener('touchend',function(){
+			
+			window.location.href = 'index.html?' + Math.random() * 1000000
+			
+		},false)
+		
+		
+		//back
+		
+		
+		
+		
+		
+		//tijiao
+
+	    
+	
+</script>
+<script src="inpMusic.js"></script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+{"frames": [
+
+{
+	"filename": "rond_0",
+	"frame": {"x":2,"y":783,"w":750,"h":779},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":750,"h":779},
+	"sourceSize": {"w":750,"h":779}
+},
+{
+	"filename": "rond_1",
+	"frame": {"x":2,"y":2,"w":750,"h":779},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":750,"h":779},
+	"sourceSize": {"w":750,"h":779}
+}],
+"meta": {
+	"app": "http://www.texturepacker.com",
+	"version": "1.0",
+	"image": "rond_json.png",
+	"format": "RGBA8888",
+	"size": {"w":754,"h":1564},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:f78dedd28fe83153276b788b242c7eca$"
+}
+}
